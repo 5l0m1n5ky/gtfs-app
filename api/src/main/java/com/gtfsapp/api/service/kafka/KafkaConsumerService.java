@@ -5,27 +5,52 @@ import com.gtfsapp.api.service.mbta.FeedDownloader;
 import com.gtfsapp.api.service.mbta.VehicleService;
 import com.gtfsapp.api.service.mbta.parsers.AlertParserStrategy;
 import com.gtfsapp.api.service.mbta.parsers.VehicleParserStrategy;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Slf4j
 public class KafkaConsumerService {
 
-    private final FeedDownloader feedDownloader;
-    private final VehicleParserStrategy vehicleParser;
-    private final AlertParserStrategy alertParser;
-    private final VehicleService vehicleService;
-    private final AlertService alertService;
+    private FeedDownloader feedDownloader;
+    private VehicleParserStrategy vehicleParser;
+    private AlertParserStrategy alertParser;
+    private VehicleService vehicleService;
+    private AlertService alertService;
 
-    @Scheduled(fixedDelay = 1000)
+    @Autowired
+    public void setFeedDownloader(FeedDownloader feedDownloader) {
+        this.feedDownloader = feedDownloader;
+    }
+
+    @Autowired
+    public void setVehicleParser(VehicleParserStrategy vehicleParser) {
+        this.vehicleParser = vehicleParser;
+    }
+
+    @Autowired
+    public void setAlertParser(AlertParserStrategy alertParser) {
+        this.alertParser = alertParser;
+    }
+
+    @Autowired
+    public void setVehicleService(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
+
+    @Autowired
+    public void setAlertService(AlertService alertService) {
+        this.alertService = alertService;
+    }
+
+    @Scheduled(fixedDelay = 5000)
     public void pollVehicleFeed() {
         feedDownloader.download("https://cdn.mbta.com/realtime/VehiclePositions.pb")
                 .ifPresent(feed -> vehicleParser.parse(feed).forEach(vehicleService::process));
-
     }
 
     @Scheduled(fixedDelay = 5000)
@@ -33,5 +58,4 @@ public class KafkaConsumerService {
         feedDownloader.download("https://cdn.mbta.com/realtime/Alerts.pb")
                 .ifPresent(feed -> alertParser.parse(feed).forEach(alertService::process));
     }
-
 }

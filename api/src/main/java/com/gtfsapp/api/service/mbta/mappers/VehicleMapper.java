@@ -4,10 +4,12 @@ import com.gtfsapp.api.model.dto.VehicleDto;
 import com.gtfsapp.api.model.dto.VehicleDto.OccupancyStatus;
 import com.gtfsapp.api.model.dto.VehicleDto.VehicleStatus;
 import com.google.transit.realtime.GtfsRealtime;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@Component
 public class VehicleMapper {
 
     public VehicleDto mapToDto(GtfsRealtime.VehiclePosition position) {
