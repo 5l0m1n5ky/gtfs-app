@@ -1,4 +1,4 @@
-package com.gtfsapp.api.service.mbta.mappers;
+package com.gtfsapp.api.service.gtfs.mappers;
 
 import com.gtfsapp.api.model.dto.VehicleDto;
 import com.gtfsapp.api.model.dto.VehicleDto.OccupancyStatus;

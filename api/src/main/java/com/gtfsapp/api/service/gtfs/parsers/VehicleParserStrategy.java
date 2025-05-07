@@ -1,9 +1,9 @@
-package com.gtfsapp.api.service.mbta.parsers;
+package com.gtfsapp.api.service.gtfs.parsers;
 
 import com.google.transit.realtime.GtfsRealtime;
 import com.gtfsapp.api.model.dto.VehicleDto;
 import com.gtfsapp.api.service.interfaces.GtfsFeedParser;
-import com.gtfsapp.api.service.mbta.mappers.VehicleMapper;
+import com.gtfsapp.api.service.gtfs.mappers.VehicleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
