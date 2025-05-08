@@ -18,11 +18,8 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/topic/**",
-                                "/vehicles/**",
-                                "/test-ws"
-                        ).permitAll()
+                        .requestMatchers("/topic/**", "/vehicles/**", "/test-ws")
+                        .permitAll()
                         .anyRequest().permitAll()
                 );
 
