@@ -1,18 +1,24 @@
 package com.gtfsapp.api.model.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-
+@AllArgsConstructor
+@Builder
 public class TripDto {
 
     private String tripId;
     private String routeId;
-    private String directionId;
+    private String serviceId;
+    private String tripHeadsign;
+    private String tripShortName;
+    private Integer directionId;
+    private String blockId;
+    private String shapeId;
+    private Integer wheelchairAccessible;
+    private Integer tripRouteType;
+    private String routePatternId;
+    private Integer bikesAllowed;
 }
