@@ -42,11 +42,14 @@ public class VehicleFeedProducer {
         this.vehicleTopic = vehicleTopic;
     }
 
-    @Scheduled(fixedDelayString = "${data.fetch.poll.duration}")
+    @Value("${gtfs.vehicles.data.fetch.url}")
+    private String vehiclesDataFetchUrl;
+
+    @Scheduled(fixedDelayString = "${gtfs.data.fetch.poll.duration}")
     public void pollAndProduce() {
         log.debug("Polling vehicle feed");
         feedDownloader
-                .download("https://cdn.mbta.com/realtime/VehiclePositions.pb")
+                .download(vehiclesDataFetchUrl)
                 .ifPresent(feed -> {
                     List<VehicleDto> vehicles = vehicleParser.parse(feed);
                     log.debug("Sending {} vehicles to Kafka", vehicles.size());

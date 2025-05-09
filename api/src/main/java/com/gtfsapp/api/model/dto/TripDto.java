@@ -14,5 +14,5 @@ public class TripDto {
 
     private String tripId;
     private String routeId;
-    private Integer directionId;
+    private String directionId;
 }
